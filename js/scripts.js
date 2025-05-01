@@ -1,10 +1,16 @@
+const gameOptionsContainerElement = document.getElementById('game-options-container')
+const formContainerElement = document.getElementById('form-container')
+const playButtonElement = document.getElementById('play-button')
+
 const rangeBarElement = document.getElementById('range-bar')
 const timersContainerElement = document.getElementById('timers')
 const topicsElement = document.getElementById('topics')
 
-const formContainerElement = document.getElementById('form-container')
+const countDownElement = document.getElementById('count-down')
 
-
+const questionContainerElement = document.getElementById('question-container')
+const answerContainerElement = document.getElementById('answer-container')
+const resultsContainerElement = document.getElementById('results-container')
 
 const QUESTIONS = {
     history: [
@@ -1071,13 +1077,17 @@ const QUESTIONS = {
       }
     ]
   };
-let choosedTopics = []
-
 
 const rangeBarNumber = rangeBarElement.previousElementSibling
+const firstTimersContainerInput = timersContainerElement.children[0].children[0]
+const amountTopics = topicsElement.children.length
 
+let amountTime = firstTimersContainerInput.value
+let choosedTopics = []
+let selectedQuestions = []
 
 rangeBarNumber.textContent = rangeBarElement.value
+playButtonElement.value = 'Jugar'
 
 const defineAmountQuestions = () => {
     rangeBarNumber.textContent = rangeBarElement.value
@@ -1085,32 +1095,83 @@ const defineAmountQuestions = () => {
 }
 
 const defineAmountTimeForQuestion = event => {
-    const amountSeconds = event.target.value
-    return amountSeconds
+    amountTime = event.target.value
+    return amountTime
 }
+
 const defineTopics = (event) => {
-    //const topic = event.target.id
-    choosedTopics = []
-    console.log(topicsElement.dataset.topic);
+    const topicSelected = event.target
+    const topicName = topicSelected.id
     
+    if (topicSelected.checked){
+        choosedTopics.push(topicName)
+    } else {
+        choosedTopics = choosedTopics.filter(topic => {
+            return topic !== topicName
+        })
+    }
+    activatePlayButton()
+}
 
-    //choosedTopics.push(QUESTIONS[topic])
-
-
-
+const activatePlayButton = () => {
+    if (choosedTopics.length !== 0){
+        playButtonElement.disabled = false
+    } else {
+        playButtonElement.disabled = true}
 }
 
 const startGame = (event) => {
     event.preventDefault()
 
+    while (selectedQuestions.length < rangeBarElement.value) {
+        const aleatoryTopic = Math.floor(Math.random() * choosedTopics.length)
+        const topic = choosedTopics[aleatoryTopic]
 
+        const aleatoryQuestion = Math.floor(Math.random() * QUESTIONS[topic].length)
+        selectedQuestions.push(QUESTIONS[topic][aleatoryQuestion])
+    }
+
+    questionContainerElement.classList.remove('hide')
+    gameOptionsContainerElement.classList.add('hide')
+
+    askQuestion()
+    
+}
+
+const answerQuestion = () => {
+    const timeout = setTimeout(() => { 
+           console.log('hola');
+           
+    }, amountTime * 1000)
+    //clearTimeout(timeout) 
+}
+
+const askQuestion = () => {
+    let questionTitle = questionContainerElement.children[0]
+
+    selectedQuestions.forEach(question => {  
+
+        const questionsShuffled = question.options.sort(() => Math.random() - 0.5)
+        
+        questionTitle.textContent = question.question
+
+        for (let i = 0; i < question.options.length; i++){
+            answerContainerElement.children[i].textContent = 
+            `${i + 1}. ${questionsShuffled[i]}` 
+        }
+
+        answerQuestion()
+
+    })
+    
+    //countDownElement.textContent = amountTime * 1000
+        
 
 }
 
-
 rangeBarElement.addEventListener('input', defineAmountQuestions)
 timersContainerElement.addEventListener('change', defineAmountTimeForQuestion)
-topicsElement.addEventListener('click', defineTopics)
+topicsElement.addEventListener('change', defineTopics)
 
 formContainerElement.addEventListener('submit', startGame)
 

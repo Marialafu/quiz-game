@@ -26,7 +26,7 @@
           <h2 class="question-title">¿Cuánto tiempo quieres por pregunta?</h2>
           <section id="timers">
             <div >
-              <input type="radio" name="radio" id="10-seconds" value="10">
+              <input type="radio" name="radio" id="10-seconds" value="10" checked>
               <label for="10-seconds">10 seconds</label>
             </div>
             <div>
@@ -39,7 +39,7 @@
             </div>
             <div>
               <input type="radio" name="radio" id="60-seconds" value="60">
-              <label for="60-seconds">40 seconds</label>
+              <label for="60-seconds">60 seconds</label>
             </div>
           </section>
         </div>
@@ -49,27 +49,27 @@
           <h2 class="question-title">¿Qué temas quieres que incluya?</h2>
           <span class="question-subtitle">Debes escoger al menos una opción</span>
           <section id="topics">
-            <div data-topic="science">
+            <div>
               <input type="checkbox" id="science">
               <label for="science">Ciencia</label>
             </div>
-            <div data-topic="geography">
+            <div>
               <input type="checkbox" id="geography">
               <label for="geography">Geografía</label>
             </div>
-            <div data-topic="art">
+            <div>
               <input type="checkbox" id="art">
               <label for="art">Arte</label>
             </div>
-            <div data-topic="history">
+            <div>
               <input type="checkbox" id="history">
               <label for="history">Historia</label>
             </div>
-            <div data-topic="mythology">
+            <div>
               <input type="checkbox" id="mythology">
               <label for="mythology">Mitologia</label>
             </div>
-            <div data-topic="culture">
+            <div>
               <input type="checkbox" id="culture">
               <label for="culture">Cultura general</label>
             </div>
@@ -82,7 +82,7 @@
 
     </section>
 
-    <section class="question-container" id="question-container">
+    <section class="question-container hide" id="question-container">
       <h2>Pregunta</h2>
       <div class="answer-container" id="answer-container">
         <span>Respuesta 1</span>
@@ -90,9 +90,10 @@
         <span>Respuesta 3</span>
         <span>Respuesta 4</span>
       </div>
+      <div id="count-down">Timer: 20s left</div>
     </section>
 
-    <section class="results-container" id="results-container">
+    <section class="results-container hide" id="results-container">
         <span>Acertaste x</span>
         <span>Fallaste x</span>
         <span>Faltaron x preguntas por responder</span>
