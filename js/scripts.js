@@ -1089,6 +1089,37 @@ let selectedQuestions = []
 rangeBarNumber.textContent = rangeBarElement.value
 playButtonElement.value = 'Jugar'
 
+
+const answerQuestion = () => {
+    const timeout = setTimeout(() => { 
+           console.log('hola');
+           
+    }, amountTime * 1000)
+    //clearTimeout(timeout) 
+}
+
+const askQuestion = () => {
+    let questionTitle = questionContainerElement.children[0]
+
+    selectedQuestions.forEach((question, i) => {  
+
+        const questionsShuffled = question.options.sort(() => Math.random() - 0.5)
+        
+        questionTitle.textContent = question.question
+
+        console.log(i);
+        
+
+        answerContainerElement.children[i].textContent = 
+        `${i + 1}. ${questionsShuffled[i]}` 
+
+        answerQuestion()
+
+    })
+    
+    //countDownElement.textContent = amountTime * 1000 
+}
+
 const defineAmountQuestions = () => {
     rangeBarNumber.textContent = rangeBarElement.value
     return rangeBarElement.value
@@ -1138,36 +1169,6 @@ const startGame = (event) => {
     
 }
 
-const answerQuestion = () => {
-    const timeout = setTimeout(() => { 
-           console.log('hola');
-           
-    }, amountTime * 1000)
-    //clearTimeout(timeout) 
-}
-
-const askQuestion = () => {
-    let questionTitle = questionContainerElement.children[0]
-
-    selectedQuestions.forEach(question => {  
-
-        const questionsShuffled = question.options.sort(() => Math.random() - 0.5)
-        
-        questionTitle.textContent = question.question
-
-        for (let i = 0; i < question.options.length; i++){
-            answerContainerElement.children[i].textContent = 
-            `${i + 1}. ${questionsShuffled[i]}` 
-        }
-
-        answerQuestion()
-
-    })
-    
-    //countDownElement.textContent = amountTime * 1000
-        
-
-}
 
 rangeBarElement.addEventListener('input', defineAmountQuestions)
 timersContainerElement.addEventListener('change', defineAmountTimeForQuestion)
