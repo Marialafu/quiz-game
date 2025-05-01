@@ -47,34 +47,36 @@
 
         <div class="form-question-container">
           <h2 class="question-title">¿Qué temas quieres que incluya?</h2>
-          <span class="question-subtitle"></span>
-          <div>
-            <input type="checkbox" id="science">
-            <label for="science">Ciencia</label>
-          </div>
-          <div>
-            <input type="checkbox" id="geography">
-            <label for="geography">Geografía</label>
-          </div>
-          <div>
-            <input type="checkbox" id="art">
-            <label for="art">Arte</label>
-          </div>
-          <div>
-            <input type="checkbox" id="history">
-            <label for="history">Historia</label>
-          </div>
-          <div>
-            <input type="checkbox" id="mitology">
-            <label for="mitology">Mitologia</label>
-          </div>
-          <div>
-            <input type="checkbox" id="culture">
-            <label for="culture">Cultura general</label>
-          </div>
+          <span class="question-subtitle">Debes escoger al menos una opción</span>
+          <section id="topics">
+            <div data-topic="science">
+              <input type="checkbox" id="science">
+              <label for="science">Ciencia</label>
+            </div>
+            <div data-topic="geography">
+              <input type="checkbox" id="geography">
+              <label for="geography">Geografía</label>
+            </div>
+            <div data-topic="art">
+              <input type="checkbox" id="art">
+              <label for="art">Arte</label>
+            </div>
+            <div data-topic="history">
+              <input type="checkbox" id="history">
+              <label for="history">Historia</label>
+            </div>
+            <div data-topic="mythology">
+              <input type="checkbox" id="mythology">
+              <label for="mythology">Mitologia</label>
+            </div>
+            <div data-topic="culture">
+              <input type="checkbox" id="culture">
+              <label for="culture">Cultura general</label>
+            </div>
+          </section>
         </div>
         <div>
-            <input type="submit" id="play-button">
+            <input type="submit" id="play-button" disabled>
         </div>
       </form>
 
