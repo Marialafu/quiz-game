@@ -18,29 +18,32 @@
           <h2 class="question-title">¿Cuántas preguntas quieres?</h2>
           <div>
             <label for="range-bar">Número</label>
-            <input type="range" id="range-bar">
+            <input type="range" id="range-bar" max="30" min="5">
           </div>
         </div>
 
         <div class="form-question-container">
           <h2 class="question-title">¿Cuánto tiempo quieres por pregunta?</h2>
-          <div>
-            <input type="radio" name="radio" id="10-seconds">
-            <label for="10-seconds">10 seconds</label>
-          </div>
-          <div>
-            <input type="radio" name="radio" id="20-seconds">
-            <label for="20-seconds">20 seconds</label>
-          </div>
-          <div>
-            <input type="radio" name="radio" id="30-seconds">
-            <label for="30-seconds">30 seconds</label>
-          </div>
-          <div>
-            <input type="radio" name="radio" id="60-seconds">
-            <label for="60-seconds">40 seconds</label>
-          </div>
+          <section id="timers">
+            <div >
+              <input type="radio" name="radio" id="10-seconds" value="10">
+              <label for="10-seconds">10 seconds</label>
+            </div>
+            <div>
+              <input type="radio" name="radio" id="20-seconds" value="20">
+              <label for="20-seconds">20 seconds</label>
+            </div>
+            <div>
+              <input type="radio" name="radio" id="30-seconds" value="30">
+              <label for="30-seconds">30 seconds</label>
+            </div>
+            <div>
+              <input type="radio" name="radio" id="60-seconds" value="60">
+              <label for="60-seconds">40 seconds</label>
+            </div>
+          </section>
         </div>
+      
 
         <div class="form-question-container">
           <h2 class="question-title">¿Qué temas quieres que incluya?</h2>
