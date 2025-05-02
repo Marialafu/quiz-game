@@ -10,6 +10,8 @@ const countDownElement = document.getElementById('count-down')
 
 const questionContainerElement = document.getElementById('question-container')
 const answerContainerElement = document.getElementById('answer-container')
+const nextQuestionButtonElement = document.getElementById('next-question-button')
+
 const resultsContainerElement = document.getElementById('results-container')
 
 const QUESTIONS = {
@@ -1086,38 +1088,84 @@ let amountTime = firstTimersContainerInput.value
 let choosedTopics = []
 let selectedQuestions = []
 
+let correctAnswers = null
+let failAnswers = null
+
 rangeBarNumber.textContent = rangeBarElement.value
 playButtonElement.value = 'Jugar'
 
 
-const answerQuestion = () => {
-    const timeout = setTimeout(() => { 
-           console.log('hola');
-           
-    }, amountTime * 1000)
-    //clearTimeout(timeout) 
+const validateChoosedAnswer = (event, question) => {
+
+  const answerSelected = event.target.closest('.answer')
+  if (!answerSelected) return
+
+  reestartQuestionAnswers()
+  answerSelected.classList.add('answer-checked')
+
+  if (question.answer === answerSelected.textContent){
+    correctAnswers++
+  } else {
+    failAnswers++
+  }
+
+}
+
+const reestartQuestionAnswers = () => {
+  const amountAnswers = answerContainerElement.children.length
+
+  for (let i = 0; i < amountAnswers; i++){
+    answerContainerElement.children[i].classList.remove('answer-checked')
+  }
+}
+
+const startCountDown = (event) => {
+  let countDownTimer = amountTime
+  countDownElement.textContent = countDownTimer
+
+    let countDownEjecution = setInterval(() => {
+
+      countDownTimer--
+      countDownElement.textContent = countDownTimer
+
+      if (countDownTimer < 1){
+        reestartQuestionAnswers()
+        countDownElement.textContent = '¡Ya!'
+        clearInterval(countDownEjecution)
+          }
+          
+    }, 1000)
 }
 
 const askQuestion = () => {
     let questionTitle = questionContainerElement.children[0]
 
-    selectedQuestions.forEach((question, i) => {  
+  selectedQuestions.forEach((question, index) => {
+
+  //Se podría poner un setInterval que creara intervalos entre las preguntas o es mejor el index?
+    const questionTimeout = setTimeout(() => {
 
         const questionsShuffled = question.options.sort(() => Math.random() - 0.5)
         
         questionTitle.textContent = question.question
 
-        console.log(i);
+        //Si quito el for, el i de arriba corresponde al indice de cada una de las preguntas y daría más de 4. Tengo que hacer un índice para las 4 opciones.
+        for (let j = 0; j < questionsShuffled.length; j++){
+          answerContainerElement.children[j].textContent = 
+          questionsShuffled[j]
+        }
+        answerContainerElement.addEventListener('click', (event) => validateChoosedAnswer(event, question))
         
+        startCountDown()
 
-        answerContainerElement.children[i].textContent = 
-        `${i + 1}. ${questionsShuffled[i]}` 
+        clearTimeout(questionTimeout);
 
-        answerQuestion()
+    }, amountTime * 1000 * index)
 
-    })
-    
-    //countDownElement.textContent = amountTime * 1000 
+    //countDownElement.textContent = questionTimeout
+     
+  })
+  
 }
 
 const defineAmountQuestions = () => {

@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
+    <header class="header">
+      <h1 class="title">QUIZ GAME</h1>
+    </header>
 
-    <main>
-
+    <mainc>
     
     <section class="game-options-container" id="game-options-container">
 
@@ -17,66 +19,68 @@
         <div class="form-question-container">
           <h2 class="question-title">¿Cuántas preguntas quieres?</h2>
           <div>
-            <label for="range-bar">Número</label>
-            <input type="range" id="range-bar" max="30" min="5">
+            <label for="range-bar" class="range-bar-number">Número</label>
+            <input type="range" id="range-bar" max="30" min="5" class="range-bar"
           </div>
         </div>
 
         <div class="form-question-container">
           <h2 class="question-title">¿Cuánto tiempo quieres por pregunta?</h2>
-          <section id="timers">
+          <section id="timers" class="timers">
             <div >
-              <input type="radio" name="radio" id="10-seconds" value="10" checked>
-              <label for="10-seconds">10 seconds</label>
+              <input type="radio" name="radio" id="10-seconds" value="10" checked class="check-input">
+              <label for="10-seconds" class="label-input">10 seconds</label>
             </div>
             <div>
-              <input type="radio" name="radio" id="20-seconds" value="20">
-              <label for="20-seconds">20 seconds</label>
+              <input type="radio" name="radio" id="20-seconds" value="20" class="check-input">
+              <label for="20-seconds" class="label-input">20 seconds</label>
             </div>
             <div>
-              <input type="radio" name="radio" id="30-seconds" value="30">
-              <label for="30-seconds">30 seconds</label>
+              <input type="radio" name="radio" id="30-seconds" value="30" class="check-input">
+              <label for="30-seconds" class="label-input">30 seconds</label>
             </div>
             <div>
-              <input type="radio" name="radio" id="60-seconds" value="60">
-              <label for="60-seconds">60 seconds</label>
+              <input type="radio" name="radio" id="60-seconds" value="60" class="check-input">
+              <label for="60-seconds" class="label-input">60 seconds</label>
             </div>
           </section>
         </div>
       
 
         <div class="form-question-container">
-          <h2 class="question-title">¿Qué temas quieres que incluya?</h2>
-          <span class="question-subtitle">Debes escoger al menos una opción</span>
-          <section id="topics">
+          <div class="topic-question-container">
+            <h2 class="question-title">¿Qué temas quieres que incluya?</h2>
+            <span>Debes escoger al menos una opción</span>
+          </div>
+          <section id="topics" class="topics-container">
             <div>
-              <input type="checkbox" id="science">
-              <label for="science">Ciencia</label>
+              <input type="checkbox" id="science" class="check-input">
+              <label for="science" class="label-input">Ciencia</label>
             </div>
             <div>
-              <input type="checkbox" id="geography">
-              <label for="geography">Geografía</label>
+              <input type="checkbox" id="geography" class="check-input">
+              <label for="geography" class="label-input">Geografía</label>
             </div>
             <div>
-              <input type="checkbox" id="art">
-              <label for="art">Arte</label>
+              <input type="checkbox" id="art" class="check-input">
+              <label for="art" class="label-input">Arte</label>
             </div>
             <div>
-              <input type="checkbox" id="history">
-              <label for="history">Historia</label>
+              <input type="checkbox" id="history" class="check-input">
+              <label for="history" class="label-input">Historia</label>
             </div>
             <div>
-              <input type="checkbox" id="mythology">
-              <label for="mythology">Mitologia</label>
+              <input type="checkbox" id="mythology" class="check-input">
+              <label for="mythology" class="label-input">Mitologia</label>
             </div>
             <div>
-              <input type="checkbox" id="culture">
-              <label for="culture">Cultura general</label>
+              <input type="checkbox" id="general" class="check-input">
+              <label for="general" class="label-input">Cultura general</label>
             </div>
           </section>
         </div>
         <div>
-            <input type="submit" id="play-button" disabled>
+            <input type="submit" id="play-button" disabled class="play-button">
         </div>
       </form>
 
@@ -85,12 +89,13 @@
     <section class="question-container hide" id="question-container">
       <h2>Pregunta</h2>
       <div class="answer-container" id="answer-container">
-        <span>Respuesta 1</span>
-        <span>Respuesta 2</span>
-        <span>Respuesta 3</span>
-        <span>Respuesta 4</span>
+        <span class="answer">Respuesta 1</span>
+        <span class="answer">Respuesta 2</span>
+        <span class="answer">Respuesta 3</span>
+        <span class="answer">Respuesta 4</span>
       </div>
-      <div id="count-down">Timer: 20s left</div>
+      <div id="count-down" class="timer">Timer: 20s left</div>
+      <button class="next-question-button" id="next-question-button">Next question</button>
     </section>
 
     <section class="results-container hide" id="results-container">
@@ -99,7 +104,7 @@
         <span>Faltaron x preguntas por responder</span>
     </section>
 
-    </main>
+    </mainc>
     <script src="./js/scripts.js"></script>
   </body>
 </html>
