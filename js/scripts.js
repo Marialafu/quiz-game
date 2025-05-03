@@ -1134,6 +1134,7 @@ const startCountDown = (event) => {
   countDownElement.textContent = countDownTimer
 
     let countDownEjecution = setInterval(() => {
+      clearInterval(countDownEjecution)
 
       countDownTimer--
       countDownElement.textContent = countDownTimer
@@ -1143,7 +1144,7 @@ const startCountDown = (event) => {
         countDownElement.textContent = '¡Ya!'
         clearInterval(countDownEjecution)
         questionNumber++
-          }
+      }
           
     }, 1000)
 }
@@ -1152,26 +1153,19 @@ const askQuestion = () => {
   let questionTitle = questionContainerElement.children[0]
   let question = selectedQuestions[questionNumber]
 
-  //Se podría poner un setInterval que creara intervalos entre las preguntas o es mejor el index?
-  const questionTimeout = setTimeout(() => {
-      
-    questionTitle.textContent = question.question
+  startCountDown()    
+  questionTitle.textContent = question.question
 
-    body.classList = ''
-    body.classList.add(question.category)
+  body.classList = ''
+  body.classList.add(question.category)
 
-    const answersShuffled = question.options.sort(() => Math.random() - 0.5)
+  const answersShuffled = question.options.sort(() => Math.random() - 0.5)
 
-    //Si quito el for, el i de arriba corresponde al indice de cada una de las preguntas y daría más de 4. Tengo que hacer un índice para las 4 opciones.
-    for (let j = 0; j < answersShuffled.length; j++){
-      answerContainerElement.children[j].textContent = 
-      answersShuffled[j]
-    }
-    startCountDown()
-        
-    clearTimeout(questionTimeout);
-
-    }, amountTime * 1000 * questionNumber)
+  for (let j = 0; j < answersShuffled.length; j++){
+    answerContainerElement.children[j].textContent = 
+    answersShuffled[j]
+  }
+  
 
   //validateAnswers()
   
@@ -1235,5 +1229,3 @@ topicsElement.addEventListener('change', defineTopics)
 formContainerElement.addEventListener('submit', startGame)
 
 answerContainerElement.addEventListener('click', showChoosedAnswer)
-
-
