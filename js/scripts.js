@@ -1089,6 +1089,8 @@ const amountTopics = topicsElement.children.length
 let amountTime = firstTimersContainerInput.value
 let choosedTopics = []
 let selectedQuestions = []
+
+let userAnswers = []
 let questionNumber = 0;
 
 let correctAnswers = null
@@ -1098,36 +1100,32 @@ rangeBarNumber.textContent = rangeBarElement.value
 playButtonElement.value = 'Jugar'
 
 
+const validateAnswers = () => {
 
-const pressNextQuestionButton = (event) => {
-  console.log(event.target);
-  
-  questionNumber++
+
+
 }
 
-const validateChoosedAnswer = (event) => {
+const showChoosedAnswer = (event) => {
 
   const answerSelected = event.target.closest('.answer')
   if (!answerSelected) return
 
-  reestartQuestionAnswers()
-  answerSelected.classList.add('answer-checked')
+  //reestartQuestionAnswers()
+  userAnswers.push(answerSelected)
 
-  // if (question.answer === answerSelected.textContent){
-  //   correctAnswers++
-  // } else {
-  //   failAnswers++
-  // }
+  questionNumber++
+  askQuestion()
 
 }
 
-const reestartQuestionAnswers = () => {
-  const amountAnswers = answerContainerElement.children.length
+// const reestartQuestionAnswers = () => {
+//   const amountAnswers = answerContainerElement.children.length
 
-  for (let i = 0; i < amountAnswers; i++){
-    answerContainerElement.children[i].classList.remove('answer-checked')
-  }
-}
+//   for (let i = 0; i < amountAnswers; i++){
+//     answerContainerElement.children[i].classList.remove('answer-checked')
+//   }
+// }
 
 const startCountDown = (event) => {
   let countDownTimer = amountTime
@@ -1139,22 +1137,23 @@ const startCountDown = (event) => {
       countDownElement.textContent = countDownTimer
 
       if (countDownTimer < 1){
-        reestartQuestionAnswers()
+        //reestartQuestionAnswers()
         countDownElement.textContent = '¡Ya!'
         clearInterval(countDownEjecution)
+        questionNumber++
           }
           
     }, 1000)
 }
 
 const askQuestion = () => {
-  questionNumber = 0;
   let questionTitle = questionContainerElement.children[0]
 
   selectedQuestions.forEach((q, index) => {
 
   //Se podría poner un setInterval que creara intervalos entre las preguntas o es mejor el index?
     const questionTimeout = setTimeout(() => {
+  
         let question = selectedQuestions[questionNumber]
 
         questionTitle.textContent = question.question
@@ -1171,7 +1170,9 @@ const askQuestion = () => {
         }
         
         startCountDown()
-        questionNumber++
+        
+
+        
         
         clearTimeout(questionTimeout);
         //questionNumber++
@@ -1179,6 +1180,9 @@ const askQuestion = () => {
     }, amountTime * 1000 * index)
   })
 
+  //validateAnswers()
+  questionNumber = 0;
+  
 }
 
 const defineAmountQuestions = () => {
@@ -1237,6 +1241,6 @@ topicsElement.addEventListener('change', defineTopics)
 
 formContainerElement.addEventListener('submit', startGame)
 
-answerContainerElement.addEventListener('click', validateChoosedAnswer)
-nextQuestionButtonElement.addEventListener('click', pressNextQuestionButton)
+answerContainerElement.addEventListener('click', showChoosedAnswer)
+
 
