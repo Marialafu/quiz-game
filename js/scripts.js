@@ -16,6 +16,11 @@ const nextQuestionButtonElement = document.getElementById('next-question-button'
 
 const resultsContainerElement = document.getElementById('results-container')
 
+const noAnsweredTextElement = document.getElementById('no-answered-text')
+const correctAnswersTextElement = document.getElementById('correct-answers-text')
+const failAnswersTextElement = document.getElementById('fail-answers-text')
+const statisticsTextElement = document.getElementById('statistics')
+
 const QUESTIONS = {
     history: [
       {
@@ -1095,6 +1100,7 @@ let questionNumber = 0;
 
 let correctAnswers = null
 let failAnswers = null
+let noAnsweredQuestions = null
 
 let countDownEjecution = null
 
@@ -1103,22 +1109,42 @@ playButtonElement.value = 'Jugar'
 
 
 const validateAnswers = () => {
-  console.log('hola');
+  
+  for (let i = 0; i < userAnswers.length; i++){
+    console.log(selectedQuestions[i].category);
+    
+    if (selectedQuestions[i].answer === userAnswers[i]){
+      correctAnswers++
+    } else {failAnswers++}
+  }
+
+
+  
 
   questionContainerElement.classList.add('hide')
   resultsContainerElement.classList.remove('hide')
 
+  if (!correctAnswers) correctAnswers = 0
+  if (!failAnswers) failAnswers = 0
+  if (!noAnsweredQuestions) noAnsweredQuestions = 0
+
+  correctAnswersTextElement.textContent = `Acertaste ${correctAnswers} preguntas`
+  failAnswersTextElement.textContent = `Fallaste ${failAnswers} preguntas`
+  noAnsweredTextElement.textContent = `Faltaron ${noAnsweredQuestions} preguntas por responder`
+  
 }
 
 const showChoosedAnswer = (event) => {
 
   const answerSelected = event.target.closest('.answer')
+  const answerSelectedName = event.target.textContent
   if (!answerSelected) return
 
   //reestartQuestionAnswers()
-  userAnswers.push(answerSelected)
-
+  
+  userAnswers.push(answerSelectedName)
   questionNumber++
+
   askQuestion()
 
 }
@@ -1136,17 +1162,21 @@ const startCountDown = (event) => {
   countDownElement.textContent = countDownTimer
   clearInterval(countDownEjecution)
 
-    countDownEjecution = setInterval(() => {
+  countDownEjecution = setInterval(() => {
 
-      countDownTimer--
-      countDownElement.textContent = countDownTimer
+    countDownTimer--
+    countDownElement.textContent = countDownTimer
 
-      if (countDownTimer < 1){
-        //reestartQuestionAnswers()
-        countDownElement.textContent = '¡Ya!'
-        clearInterval(countDownEjecution)
-        questionNumber++
-      }
+    if (countDownTimer < 1){
+      //reestartQuestionAnswers()
+      countDownElement.textContent = '¡Ya!'
+      clearInterval(countDownEjecution)
+      userAnswers.push('no answer')
+      noAnsweredQuestions++
+      questionNumber++
+      //si pongo esto me sigue ejecutando askquestion() cada vez, pero si no lo pongo no pasa de pregunta
+      askQuestion()
+    }
           
     }, 1000)
 }
@@ -1155,11 +1185,13 @@ const askQuestion = () => {
   let questionTitle = questionContainerElement.children[0]
   let question = selectedQuestions[questionNumber]
 
-  if (defineAmountQuestions() === questionNumber){
+  if (defineAmountQuestions() === questionNumber.toString()){
     validateAnswers()
-  }
+    return;
+  } 
+  
+  startCountDown()
 
-  startCountDown()    
   questionTitle.textContent = question.question
 
   body.classList = ''
@@ -1171,6 +1203,7 @@ const askQuestion = () => {
     answerContainerElement.children[j].textContent = 
     answersShuffled[j]
   }
+
 }
 
 const defineAmountQuestions = () => {
@@ -1230,4 +1263,4 @@ topicsElement.addEventListener('change', defineTopics)
 
 formContainerElement.addEventListener('submit', startGame)
 
-// answerContainerElement.addEventListener('click', showChoosedAnswer)
+answerContainerElement.addEventListener('click', showChoosedAnswer)

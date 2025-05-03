@@ -138,6 +138,7 @@ h2{
 
 
 /* QUESTIONS QUIZ */
+.results-container,
 .question-container{
   display: flex;
   flex-direction: column;
@@ -148,8 +149,15 @@ h2{
   width: 90%;
   display: grid;
   grid-template-columns: repeat(2, 25%);
-  gap: 30px;
+  gap: 1.875rem;
   justify-content: center;
+}
+.results-container{
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius-l);
+  padding: 2rem;
+  width: 93%;
+  margin-inline: auto;
 }
 .next-question-button{
   border: none;
