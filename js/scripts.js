@@ -1096,6 +1096,8 @@ let questionNumber = 0;
 let correctAnswers = null
 let failAnswers = null
 
+let countDownEjecution = null
+
 rangeBarNumber.textContent = rangeBarElement.value
 playButtonElement.value = 'Jugar'
 
@@ -1104,7 +1106,7 @@ const validateAnswers = () => {
   console.log('hola');
 
   questionContainerElement.classList.add('hide')
-  answerContainerElement.classList.remove('hide')
+  resultsContainerElement.classList.remove('hide')
 
 }
 
@@ -1132,9 +1134,9 @@ const showChoosedAnswer = (event) => {
 const startCountDown = (event) => {
   let countDownTimer = amountTime
   countDownElement.textContent = countDownTimer
+  clearInterval(countDownEjecution)
 
-    let countDownEjecution = setInterval(() => {
-      clearInterval(countDownEjecution)
+    countDownEjecution = setInterval(() => {
 
       countDownTimer--
       countDownElement.textContent = countDownTimer
@@ -1153,6 +1155,10 @@ const askQuestion = () => {
   let questionTitle = questionContainerElement.children[0]
   let question = selectedQuestions[questionNumber]
 
+  if (defineAmountQuestions() === questionNumber){
+    validateAnswers()
+  }
+
   startCountDown()    
   questionTitle.textContent = question.question
 
@@ -1165,10 +1171,6 @@ const askQuestion = () => {
     answerContainerElement.children[j].textContent = 
     answersShuffled[j]
   }
-  
-
-  //validateAnswers()
-  
 }
 
 const defineAmountQuestions = () => {
@@ -1228,4 +1230,4 @@ topicsElement.addEventListener('change', defineTopics)
 
 formContainerElement.addEventListener('submit', startGame)
 
-answerContainerElement.addEventListener('click', showChoosedAnswer)
+// answerContainerElement.addEventListener('click', showChoosedAnswer)
