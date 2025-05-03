@@ -33,7 +33,6 @@ nav ul {
 body {
   margin: 0;
   font-family: sans-serif;
-  background-color: var(--primary-color);
 }
 h2{
   margin: 0;
@@ -91,7 +90,7 @@ h2{
 
 /* RANGE BAR */
 .range-bar{
-  width: 57.75rem;
+  width: 724px;
   cursor: pointer;
   border-radius: 50%;
 }
@@ -174,6 +173,26 @@ h2{
   padding: 0.9375rem 0;
   border-radius: 100%;
   background-color: var(--secondary-color);
+}
+
+/* COLORES */
+.science{
+  background-color: rgb(146, 255, 146);
+}
+.geography{
+  background-color: rgb(255, 181, 42);
+}
+.art{
+  background-color: rgb(255, 57, 57);
+}
+.history{
+  background-color: rgb(56, 142, 255);
+}
+.mythology{
+  background-color: rgb(145, 72, 255);
+}
+.general{
+  background-color: rgb(255, 99, 148);
 }
 
 
