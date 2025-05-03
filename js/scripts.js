@@ -1101,8 +1101,10 @@ playButtonElement.value = 'Jugar'
 
 
 const validateAnswers = () => {
+  console.log('hola');
 
-
+  questionContainerElement.classList.add('hide')
+  answerContainerElement.classList.remove('hide')
 
 }
 
@@ -1148,40 +1150,30 @@ const startCountDown = (event) => {
 
 const askQuestion = () => {
   let questionTitle = questionContainerElement.children[0]
-
-  selectedQuestions.forEach((q, index) => {
+  let question = selectedQuestions[questionNumber]
 
   //Se podría poner un setInterval que creara intervalos entre las preguntas o es mejor el index?
-    const questionTimeout = setTimeout(() => {
-  
-        let question = selectedQuestions[questionNumber]
+  const questionTimeout = setTimeout(() => {
+      
+    questionTitle.textContent = question.question
 
-        questionTitle.textContent = question.question
+    body.classList = ''
+    body.classList.add(question.category)
 
-        body.classList = ''
-        body.classList.add(question.category)
+    const answersShuffled = question.options.sort(() => Math.random() - 0.5)
 
-        const answersShuffled = question.options.sort(() => Math.random() - 0.5)
-
-        //Si quito el for, el i de arriba corresponde al indice de cada una de las preguntas y daría más de 4. Tengo que hacer un índice para las 4 opciones.
-        for (let j = 0; j < answersShuffled.length; j++){
-          answerContainerElement.children[j].textContent = 
-          answersShuffled[j]
-        }
+    //Si quito el for, el i de arriba corresponde al indice de cada una de las preguntas y daría más de 4. Tengo que hacer un índice para las 4 opciones.
+    for (let j = 0; j < answersShuffled.length; j++){
+      answerContainerElement.children[j].textContent = 
+      answersShuffled[j]
+    }
+    startCountDown()
         
-        startCountDown()
-        
+    clearTimeout(questionTimeout);
 
-        
-        
-        clearTimeout(questionTimeout);
-        //questionNumber++
-
-    }, amountTime * 1000 * index)
-  })
+    }, amountTime * 1000 * questionNumber)
 
   //validateAnswers()
-  questionNumber = 0;
   
 }
 
@@ -1230,6 +1222,7 @@ const startGame = (event) => {
     questionContainerElement.classList.remove('hide')
     gameOptionsContainerElement.classList.add('hide')
 
+    questionNumber = 0;
     askQuestion()
     
 }
